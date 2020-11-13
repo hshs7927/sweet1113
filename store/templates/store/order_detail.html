@@ -1,0 +1,28 @@
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'posts/style.css'%}" />
+{% endblock %}
+
+{% block content %}
+  <h1>구매내역</h1>
+
+  {% if post %}
+    <h2>주문번호</h2>
+    <p>{{ post.author }}</p>
+    <h2>가게이름</h2>
+    <p>{{ post.body }}</p>
+    <h2>메뉴</h2>
+    <p>{{ post.created_at }}</p>
+    <h2>예약날짜</h2>
+    <p>{{ post.created_at }}</p>
+    <h2>픽업시간</h2>
+    <p>{{ post.created_at }}</p>
+  {% else %}
+    <p>No Post.</p>
+  {% endif %}
+  <h2>사장님메세지칸</h2>
+  <h2>가게정보</h2>
+  <a href="{% url 'store:index' %}">메인페이지</a>
+  
+{% endblock %}

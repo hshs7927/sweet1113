@@ -1,0 +1,15 @@
+
+{% if user.is_authenticated %}
+<p>{{ user.first_name}} 님 환영합니다. </p>
+<p>내 마카롱 매장 : {{Store.biz_name}}</p>
+<p> test : {{managers_store}}</p>
+{% endif %}
+<div>인덱스페이지</div>
+<br><br>
+<ul>
+    <li>신규예약 세팅하기</li>
+    <li>매장 품목 데이터베이스 관리</li>
+    <li>예약확정명단</li>
+    <li>주문접수현황</li>
+
+</ul>

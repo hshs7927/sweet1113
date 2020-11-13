@@ -1,0 +1,18 @@
+
+
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'posts/style.css'%}" />
+{% endblock %}
+
+{% block content %}
+  <h1>제이카롱</h1>
+  <h2>가게인스타 포스팅</h2>
+  <h2>리뷰</h2>
+  <h3>인스타리뷰</h3>
+  <h3>방문자리뷰</h3>
+  <h2>가게정보</h2>
+
+  <a href="{% url 'store:new' %}">예약하기</a>
+{% endblock %}

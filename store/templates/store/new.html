@@ -1,0 +1,76 @@
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'posts/style.css'%}" />
+{% endblock %}
+
+{% block content %}
+  <h1>예약페이지</h1>
+
+    <form action="{% url 'store:create' %}" method="POST">
+    {% csrf_token %}
+
+    <h2>날짜</h2>
+    <input type="text" name="set_day" />
+
+    <h2>픽업시간</h2>
+    <input type="text" name="pickuptime" />
+   
+    <h3>사장님 메세지</h3>
+    <textarea cols="40" rows="10" name="notification"></textarea>
+
+
+    <h2>메뉴</h2>
+    {% if test %}
+    <table>
+      <thead>
+        <tr>
+          <th>메뉴</th>
+          <th>재고</th>
+          <th>가격</th>
+          <th>주문수량</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in test %}
+        <tr>  
+            <td>{{ x.item }}</td>
+            <td>{{ x.quota }}</td>
+            <td>{{ x.item_price }}</td>
+            <td>{{ x.order_quota }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No Posts.</p>
+    {% endif %}
+    <h2>포장방법</h2>
+    <input type="text" name="author" />
+    <h2>예약자정보</h2>
+    {% if test %}
+    <table>
+        <thead>
+            <tr>
+                <th>예약자 이름</th>
+                <th>예약자 연락처</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in customer %}
+            <tr>
+                <th>{{ customer.first_name }}</th>
+                <th>{{ user.username }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No Posts.</p>
+    {% endif %}
+    <br />
+    <input type="submit" value="예약하기">
+  </form>
+  <a href="{% url 'store:index' %}">이전으로</a>
+
+{% endblock %}
