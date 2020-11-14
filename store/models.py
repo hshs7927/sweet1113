@@ -16,13 +16,13 @@ class Order(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     ##주문한시간
-    set_day = models.DateField()
+    #set_day = models.DateField()
     order_date = models.DateTimeField(auto_now_add=True)
     pickuptime = models.TimeField(null=True)
     picktf = models.BooleanField(null=True)
     reservetf = models.BooleanField(null=True)
     def __str__(self):
-        return f'store:{self.store.biz_name} first_name:{self.user.first_name} set_day:{self.today_lineup.set_day}pickuptime:{self.pickuptime} picktf:{self.picktf} reservetf:{self.reservetf}'
+        return f'store:{self.store.biz_name} first_name:{self.user.first_name}pickuptime:{self.pickuptime} picktf:{self.picktf} reservetf:{self.reservetf}'
     
 
 class Orderlist(models.Model):
