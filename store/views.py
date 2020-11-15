@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 from manager.models import Store, Today_lineup, User, Store_set, Allitem
-from store.models import Order, Orderlist, Customer 
+from store.models import Order, Orderlist, Customer, Review
 # Create your views here.
 def new(request):
     # teststore = Store.objects.get(today_lineup.id)
@@ -35,6 +35,7 @@ def create(request):
     return redirect('store:order_detail', order_id=order.id)    
 
 def index(request):
+
     return render(request, 'store/index.html')
 
 def delete(request):
@@ -55,4 +56,14 @@ def order_history(request):
     # order=Order.objects.get(id=order_id)
     # context = {'post':post} 와 진짜어렵다. 유저네임으로 오더불러오고 내용도 채워야하는거잔항
     return render(request, 'store/order_history.html')
+
+# def review(request, order_id):
+#     order = get_object_or_404(Order, pk=order_id)
+#     review = request.POST['review']
+#     review = Review(order = order, review = review)
+#     review.save()
+#     return redirect('')
 # Create your views here.
+
+def myprofile(request):
+    return render(request, 'store/myprofile.html')

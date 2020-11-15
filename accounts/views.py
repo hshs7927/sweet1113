@@ -32,6 +32,7 @@ def sign_up(request):
                 biz_tel = request.POST['biz_tel']
             )
             new_storemember.save()
+
             auth.login(request, new_user)
             return HttpResponse('정상적회원가입완료')
 

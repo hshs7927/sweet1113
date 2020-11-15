@@ -1,0 +1,13 @@
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'store/style.css'%}" />
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'reviewcreate' order.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="review">
+    <input type="submit">
+</form>

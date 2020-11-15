@@ -32,3 +32,11 @@ class Orderlist(models.Model):
 
 def __str__(self):
         return f'order_number:{self.order.id} / Today_lineup:{self.today_lineup.id} / order_quota:{self.order_quota}'
+
+class Review(models.Model):
+    review_comment = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    order =  models.ForeignKey(Order, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'order.id:{self.order.id} / review_comment:{self.review_comment}'

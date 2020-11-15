@@ -1,7 +1,7 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'posts/style.css'%}" />
+  <link rel="stylesheet" href="{% static 'store/style.css'%}" />
 {% endblock %}
 
 {% block content %}
@@ -69,8 +69,14 @@
     <p>No Posts.</p>
     {% endif %}
     <br />
-    <input type="submit" value="예약하기">
+    <input type="submit" class=button1 value="예약하기">
+
   </form>
-  <a href="{% url 'store:index' %}">이전으로</a>
+  <style>
+    .button1 {display:inline-block; background-color:#f44336; color: #FFFFFF; padding: 14px 25px; text-align: center; text-decoration: none; font-size: 16px; margin-left: 20px; opacity: 0.9; border-radius: 5px;} 
+    .button1:hover {color:white; background-color:pink; opacity:1.0;}
+  </style>  
+  <a href="{% url 'store:index' %}" class="button1" targer="_blank">이전으로</a>
+
 
 {% endblock %}
