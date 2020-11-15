@@ -1,27 +1,45 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'posts/style.css'%}" />
+  <link rel="stylesheet" href="{% static 'store/style.css'%}" />
 {% endblock %}
 
 {% block content %}
   <h1>나의구매내역</h1>
 
-  {% if post %}
-  <h2>주문번호</h2>
-  <p>{{ post.author }}</p>
-  <h2>가게이름</h2>
-  <p>{{ post.body }}</p>
-  <h2>메뉴</h2>
-  <p>{{ post.created_at }}</p>
-  <h2>예약날짜</h2>
-  <p>{{ post.created_at }}</p>
-  <h2>픽업시간</h2>
-  <p>{{ post.created_at }}</p>
-  {% else %}
-  <p>No Post.</p>
-  {% endif %}
 
-  <a href="{% url 'store:index' %}">목록</a>
+  {% if post %}
+    <table>
+      <thead>
+        <tr>
+          <tr>주문번호</tr>
+          <tr>가게이름</tr>
+          <tr>메뉴</tr>
+          <tr>수량</tr>
+          <tr>예약날짜</tr>
+          <tr>픽업시간</tr>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts%}
+        <tr>
+          <th>{{ order.id }}</th>
+          <th>{{ order.store }}</th>
+          <th>{{ orderlist.today_lineup }}</th>
+          <th>{{ orderlist.order_quota }}</th>
+          <th>{{ order.ordered_date }}</th>
+          <th>{{ order.pickuptime }}</th>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No Post.</p>
+  {% endif %}
+  <style>
+    .button1 {display:inline-block; background-color:#f44336; color: #FFFFFF; padding: 14px 25px; text-align: center; text-decoration: none; font-size: 16px; margin-left: 20px; opacity: 0.9; border-radius: 5px;} 
+    .button1:hover {color:white; background-color:pink; opacity:1.0;}
+  </style>  
+  <a href="{% url 'store:index' %}" class="button1" targer="_blank">메인페이지</a>
 
 {% endblock %}
