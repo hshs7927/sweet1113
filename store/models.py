@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from manager.models import Store, Today_lineup
+from manager.models import Store, Today_lineup, User, Store_set, Allitem
 
 # Create your models here.
 
@@ -15,14 +15,14 @@ class Customer(models.Model):
 class Order(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    ##주문한시간
-    #set_day = models.DateField()
+    ##주문한시간 셋데이만 들어가면!! 이것만 들어가면 가동이안됨..
+    #set_day = models.DateField() 
     order_date = models.DateTimeField(auto_now_add=True)
     pickuptime = models.TimeField(null=True)
     picktf = models.BooleanField(null=True)
     reservetf = models.BooleanField(null=True)
     def __str__(self):
-        return f'store:{self.store.biz_name} first_name:{self.user.first_name}pickuptime:{self.pickuptime} picktf:{self.picktf} reservetf:{self.reservetf}'
+        return f'store:{self.store.biz_name} first_name:{self.user.first_name} pickuptime:{self.pickuptime} picktf:{self.picktf} reservetf:{self.reservetf}'
     
 
 class Orderlist(models.Model):

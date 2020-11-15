@@ -30,7 +30,7 @@ class Today_lineup(models.Model):
     item = models.ForeignKey('Allitem', on_delete=models.PROTECT, null=True)
     set_day = models.DateField()
     quota = models.IntegerField()
-
+            
     def __str__(self):
         return f'품목:{self.item.item_name} / 판매날짜:{self.set_day} / 재고:{self.quota}'
 
@@ -45,4 +45,7 @@ class Store_set(models.Model):
     def __str__(self):
         return f'가게명:{self.store.biz_name} 오픈날짜:{self.openday}'
 
+class Balance(models.Model):
+    today_lineup = models.ForeignKey('today_lineup', on_delete=models.CASCADE, null=True)
+     
 #리뷰모델은 customer app에서 만들 것
