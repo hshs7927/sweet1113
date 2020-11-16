@@ -30,6 +30,7 @@ class Today_lineup(models.Model):
     item = models.ForeignKey('Allitem', on_delete=models.PROTECT, null=True)
     set_day = models.DateField()
     quota = models.IntegerField()
+    
 
     def __str__(self):
         return f'품목:{self.item.item_name} / 판매날짜:{self.set_day} / 재고:{self.quota}'

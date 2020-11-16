@@ -7,8 +7,8 @@ app_name= 'store'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    #path('<str:biz_url>', views.intro, name='intro'),
-    path('new/', views.new, name='new'),
+    path('<str:biz_url>', views.intro, name='intro'),
+    path('new/<str:biz_url>', views.new, name='new'),
     path('create/', views.create, name='create'),
     path('order_detail/<int:order_id>/', views.order_detail, name='order_detail'),
     path('<int:order_id>/delete/', views.delete, name='delete'),

@@ -4,21 +4,51 @@ from django.utils import timezone
 from manager.models import Store, Today_lineup, User, Store_set, Allitem
 from store.models import Order, Orderlist, Customer, Review
 # Create your views here.
-def new(request):
-    # teststore = Store.objects.get(today_lineup.id)
-    # test = Today_lineup.objects.filter(store=teststore)
-    # testitem = Today_lineup.objects.filter(store=teststore)
-    # testquota = Today_lineup.objets.filter(store=teststore)
-    # testprice = Allitem.objects.get(allitem.id == today_lineup.item)
-    
-    # context={
-    #     "teststore":teststore,
-    #     "test":test,
-    #     "testitem":testitem,
-    #     "testquota":testquota,
-    #     "testprice":testprice,
-    #     }
-    return render(request,'store/new.html')
+def intro(request, biz_url):
+    sample = Store.objects.all()
+    result = Store.objects.filter(biz_url=biz_url)
+    print("result :", len(result))
+
+    if len(result) == 0:
+        return render(request, "store/index.html")
+    else:
+        context = {
+            "sample": result,
+        }
+
+        return render(request, "store/index.html", context)
+
+def new(request, biz_url, set_day):
+    store = Store.ogjects.get(biz_url=biz_url)
+    set_day = Today_lineup.objects.get(set_day=set_day)
+    testitem = Today_lineup.objects.filter(store = store, set_day=set_day)
+    testquota = Today_lineup.objects.filter(store = store, set_day=set_day)
+    testprice = Allitem.objects.get(id=item_id)
+     
+    context = { 
+         "store": store,
+         "set_day": set_day,
+         "testitem":testitem,
+         "testquota":testquota,
+         "testprice":testprice }
+
+    return render(request, 'store/new/<str:biz_url>.html', context)
+    #return render(request, 'store/new/<str:biz_url>.html', context)
+    #return render(request,'store/new/<str:biz_url>.html', context)
+
+# def newnew(request, biz_url): 
+#      teststore = Store.objects.get(today_lineup.store = )
+#      test = Today_lineup.objects.filter(store=teststore)
+#      testitem = Today_lineup.objects.filter(store=teststore)
+#      testquota = Today_lineup.objets.filter(store=teststore)
+#      testprice = Allitem.objects.get(allitem.id == testitem)
+#      price = Allitem.objects.filter(testpice=item_price)
+#     context= {
+#         "teststore":teststore,
+#         "test":test,
+#         "testitem":testitem,
+#         "testquota":testquota,
+#         "price":price,
     #여기 리턴에서 , context 뺌 
 #balance에서 갖고 오기 나중에는 
 def create(request):
@@ -35,10 +65,11 @@ def create(request):
     return redirect('store:order_detail', order_id=order.id)    
 
 def index(request):
-
     return render(request, 'store/index.html')
 
-def delete(request):
+def delete(request, order_id):
+    order = Order.objects.get(id=order_id)
+    post.delete()
     return redirect('store:index')
 #order.id 뺌, detail history에서, 그리고 히스토리에서, context 도 뺌
 def order_detail(request, order_id):
@@ -60,6 +91,29 @@ def order_history(request):
 def review(request, order_id):
     return render(request, 'store/review.html')
 
+def review_index(request):
+    reviews = Review.objects.all()
+    context = {'reviews': review}
+
+    return render(request, 'review_index.html', context)
+
+def review_edit(request, review_id):
+    review = Review.objects.get(id=Review_id)
+    context = {'review': review}
+
+    return render(request, 'review_edit.html', context)
+
+def review_update(request, review_id):
+    review = Review.objects.get(id=review_id)
+    review.order = request.POST['order']
+    review.review_content = request.POST['review_content']
+    review.save()
+    return redirect('store:review_index')
+
+def review_delete(request, review_id):
+    review = Review.objects.get(id=review_id)
+    review.delete()
+    return redirect('store:review_index')
 def review_create(request, order_id):
     #order = get_object_or_404(Order, pk=order_id)
     
@@ -71,11 +125,7 @@ def review_create(request, order_id):
     # elif review_content == None:
     #     return Httpresponse("리뷰 내용을 입력해주세요")
     review_content.save()
-    return redirect('store:order_detail', order_id=order.id)
-#     review = request.POST['review']
-#     review = Review(order = order, review = review)
-#     review.save()
-#     return redirect('')
+    return redirect('store:review_index')
 # Create your views here.
 
 def myprofile(request):
