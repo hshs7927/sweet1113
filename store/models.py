@@ -32,11 +32,16 @@ class Orderlist(models.Model):
 
 def __str__(self):
         return f'order_number:{self.order.id} / Today_lineup:{self.today_lineup.id} / order_quota:{self.order_quota}'
-
+#foreignkey 안에서는 id 적지 않아도 알아서 생긴다! 
 class Review(models.Model):
-    review_comment = models.CharField(max_length=100)
+    order = models.ForeignKey('Order',on_delete=models.SET_NULL, null=True)
+   #order_id = models.CharField(max_length=100)
+    #models.ForeignKey(Order, on_delete=models.CASCADE)
+    review_content = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
-    order =  models.ForeignKey(Order, on_delete=models.CASCADE)
+    
 
     def __str__(self):
-        return f'order.id:{self.order.id} / review_comment:{self.review_comment}'
+        return f'order:{self.order} / review_content:{self.review_content}'
+
+

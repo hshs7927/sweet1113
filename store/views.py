@@ -56,9 +56,22 @@ def order_history(request):
     # order=Order.objects.get(id=order_id)
     # context = {'post':post} 와 진짜어렵다. 유저네임으로 오더불러오고 내용도 채워야하는거잔항
     return render(request, 'store/order_history.html')
+#리뷰=리뷰 눌렀을 때 액션 // review create = 리뷰 submit 했을 때 액션
+def review(request, order_id):
+    return render(request, 'store/review.html')
 
-# def review(request, order_id):
-#     order = get_object_or_404(Order, pk=order_id)
+def review_create(request, order_id):
+    #order = get_object_or_404(Order, pk=order_id)
+    
+    order = Order.objects.get(id=order_id)
+    review_content = request.POST['review_content']
+    #review_content = Review.objects.create(review_content=review_content)
+    # if order_id == None:
+    #     return Httpresponse("주문번호를 입력해주세요")
+    # elif review_content == None:
+    #     return Httpresponse("리뷰 내용을 입력해주세요")
+    review_content.save()
+    return redirect('store:order_detail', order_id=order.id)
 #     review = request.POST['review']
 #     review = Review(order = order, review = review)
 #     review.save()
