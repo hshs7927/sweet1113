@@ -15,6 +15,7 @@ urlpatterns = [
     path('order_history/', views.order_history, name='order_history'),  
     path('review/<int:order_id>', views.review, name='review'),
     path('review_create/<int:order_id>', views.review_create, name='review_create'),
-    #path('review/', views.review, name='review'),
+    #path('review_edit/<int:review_id>', views.review_edit, name='review_edit'),
+    path('review_index', views.review_index, name='review_index').
     path('myprofile/', views.myprofile, name='myprofile'),
 ]

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'store/style.css'%}" />
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="page_title">스윗폼 첫페이지 </h1>
+    <!--<a href="{% url 'manager:new' %}">업체등록하러가기</a>  이거를 마이페이지에다가만? -->
+</div>
+ {% endblock %}

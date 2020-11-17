@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'store/style.css'%}" />
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="post_title">전체 리뷰</h1>
+
+    {% if posts %}
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>주문번호</th>
+          <th>리뷰</th>
+          <th>게시일</th>
+          <th>수정</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in rivews %}
+        <tr>
+          <th>{{ review.id }}</th>
+          <td>{{ order.order.id }}</td>
+          <td>{{ review.review_content }}</td>
+          <td>{{ post.created_at }}</td>
+          <td><a href="{% url 'review:edit' review.id %}"></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No Posts.</p>
+    {% endif %}
+
+    <a href="{% url 'review:create' %}">리뷰작성하기</a> <!-- 이거를 마이페이지에다가만? -->
+  </div>
+
+  
+{% endblock %}

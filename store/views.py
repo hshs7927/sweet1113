@@ -23,6 +23,7 @@ def new(request):
 #balance에서 갖고 오기 나중에는 
 def create(request):
     #set_day = request.POST['set_day'] 셋데이 여기서 빼고, 밑에 order=Order(set_day 여기서도 뺐다)
+    #itme, qouta , price  + pickuptime, ordered_date -> 
     pickuptime = request.POST['pickuptime']
     today_lineup = request.POST['today_lineup']
     order_quota = request.POST['order_quota']
