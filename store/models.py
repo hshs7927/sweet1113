@@ -26,22 +26,23 @@ class Order(models.Model):
     
 
 class Orderlist(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    order_number = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     today_lineup = models.ForeignKey(Today_lineup, on_delete=models.CASCADE, null=True)
     order_quota = models.IntegerField()
 
 def __str__(self):
-        return f'order_number:{self.order.id} / Today_lineup:{self.today_lineup.id} / order_quota:{self.order_quota}'
+        return f'order_number:{self.order} / Today_lineup:{self.today_lineup.id} / order_quota:{self.order_quota}'
 #foreignkey 안에서는 id 적지 않아도 알아서 생긴다! 
 class Review(models.Model):
-    order = models.ForeignKey('Order',on_delete=models.SET_NULL, null=True)
-   #order_id = models.CharField(max_length=100)
+    order = models.ForeignKey(Order,on_delete=models.SET_NULL, null=True)
+   
     #models.ForeignKey(Order, on_delete=models.CASCADE)
     review_content = models.CharField(max_length=300)
+    review_photo = models.ImageField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
 
     def __str__(self):
-        return f'order:{self.order} / review_content:{self.review_content}'
+        return f'order:{self.order} / review_content:{self.review_content}/ review_photo:{self.review_photo}'
 
 
