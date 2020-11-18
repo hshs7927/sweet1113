@@ -1,0 +1,13 @@
+{% load static %}
+
+{% block style %}
+  
+    <link rel="stylesheet" type="text/css" href="{% static 'store/style.css'%}" />
+  
+{% endblock %}
+
+{% block content %}
+
+  <h1>스윗폼 소개페이지</h1>
+  <img src="static/macaron.png" alt="{{Store.biz_name}}" width="900" height="600">
+  <p>{{ user.first_name}} 님 환영합니다. </p>
