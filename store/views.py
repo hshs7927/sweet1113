@@ -41,21 +41,84 @@ def index(request):
 def delete(request):
     return redirect('store:index')
 #order.id 뺌, detail history에서, 그리고 히스토리에서, context 도 뺌
+@login_required
 def order_detail(request, order_id):
-    order = Order.objects.get(id=order_id)
-    orderlist = Orderlist.objects.get(order=order_id)
-    #order_store= Order.objects.get() #fk를 써야할것같은데,, 실패,,
-    #notification = Store_set.objects.get(store=order_store)
-    context = {'order':order}
-    context = {'orderlist':orderlist}
-    #context = {'notification': notification}
-    return render(request, 'store/order_detail.html', context)
+    #이게 create 함수 바로 이어지는 페이지다. 
+    try:
+        result = Order.objects.get(id=order_id, user=request.user)
+    except Order.DoesNotExist:
+        return redirect('store:index')
 
-def order_history(request):
+    order = Order.objects.get(id=order_id)
+   
+    dtstore = Order.objects.get(id=order_id)
+    dtlineup = Orderlist.objects.get(id=order_id)
+    dtquota = Orderlist.objects.get(id=order_id)
+    dtprice = Orderlist.objects.get(id=order_id)
+    #totalprice = sum{dtquota * dtprice } 이렇게 html 에 적기! 
+    dtpickuptime = Order.objects.get(id=order_id)
+    dtorderdate = Order.objects.get(id=order_id)
+    
+    context = { 'order':order,
+                'dtstore':dtstore,
+                'dtlineup':dtlineup,
+                'dtquota':dtquota,
+                'dtprice':dtprice,
+                'dtpickuptime':dtpickuptime,
+                'dtorderdate':dtorderdate,
+                }
+    return render(request, 'store/order_detail.html', context)
+@login_required
+def order_history(request, order_id):
+    try:
+        result = Order.objects.get(id=order_id, user=request.user)
+    except Order.DoesNotExist:
+        return redirect('store:index')
+    
+       order = Order.objects.get(id=order_id)
+   
+    dtstore = Order.objects.get(id=order_id)
+    dtlineup = Orderlist.objects.get(id=order_id)
+    dtquota = Orderlist.objects.get(id=order_id)
+    dtprice = Orderlist.objects.get(id=order_id)
+    #totalprice = sum{dtquota * dtprice } 이렇게 html 에 적기! 
+    dtpickuptime = Order.objects.get(id=order_id)
+    dtorderdate = Order.objects.get(id=order_id)
+    
+    context = { 'order':order,
+                'dtstore':dtstore,
+                'dtlineup':dtlineup,
+                'dtquota':dtquota,
+                'dtprice':dtprice,
+                'dtpickuptime':dtpickuptime,
+                'dtorderdate':dtorderdate,
+                }
+    return render(request, 'store/order_history.html', context)
+@login_required
+def review_history(request, review_id):
+    try:
+        result = Reivew.objects.get(id=review_id, user=request.user)
+    except Order.DoesNotExist:
+        return redirect('store:index')
+
+    review = Review.objects.get(id=order_id)
+    
+    dtcomment = Review.objects.get(id=review_id)
+    dtrpicture = Review.objects.get(id=review_id)
+    dtrcreated = Review.objects.get(id=review_id)
+
+     context = { 'review':review,
+                'dtcomment':dtcomment,
+                'dtrpicture':dtrpicture,
+                'dtrcreated':dtrcreated,
+                }
+ return render(request, 'store/review_history.html', context)
+    #먼저 고객 id를 확인해 - 본인이 맞는지 체크도 하고 
+    #그고객의 주번들을 불러와 그리고 그 주번의 가게이름/메뉴/예약날짜/픽업시간/결제금액을 불러와 
     # order=Order.objects.filter(User.id=user.get_username)
     # order=Order.objects.get(id=order_id)
     # context = {'post':post} 와 진짜어렵다. 유저네임으로 오더불러오고 내용도 채워야하는거잔항
-    return render(request, 'store/order_history.html')
+
 #리뷰=리뷰 눌렀을 때 액션 // review create = 리뷰 submit 했을 때 액션
 def review(request, order_id):
     return render(request, 'store/review.html')
